@@ -8,7 +8,7 @@ namespace KataBabysitter.Services
 {
     public class PaymentCalculationService
     {
-        public int Calculate(ShiftInformation shiftInformation)
+        public async Task<int> CalculateAsync(ShiftInformation shiftInformation)
         {
             shiftInformation = FixPostMidnightDates(shiftInformation);
             var awakeHours = CalculateAwakeHours(shiftInformation);
