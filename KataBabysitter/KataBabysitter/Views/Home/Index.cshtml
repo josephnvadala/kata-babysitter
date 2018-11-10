@@ -6,18 +6,24 @@
 <form id="form">
     <div class="form-group">
         <label for="startTime">Start Time</label>
-        <input type="time" class="form-control" id="startTime" aria-describedby="startTimeHelp" placeholder="Enter Start Time">
+        <input required type="time" class="form-control" id="startTime" aria-describedby="startTimeHelp" placeholder="Enter Start Time">
         <small id="startTimeHelp" class="form-text text-muted">Enter the time you began babysitting</small>
     </div>
     <div class="form-group" id="bedTimeGroup">
         <label for="bedTime">Bed Time</label>
-        <input type="time" class="form-control" id="bedTime" aria-describedby="bedTimeHelp" placeholder="Enter Bed Time">
+        <input required type="time" class="form-control" id="bedTime" aria-describedby="bedTimeHelp" placeholder="Enter Bed Time">
         <small id="bedTimeHelp" class="form-text text-muted">Enter the time the children went to bed</small>
     </div>
     <div class="form-group">
         <label for="endTime">End Time</label>
-        <input type="time" class="form-control" id="endTime" aria-describedby="endTimeHelp" placeholder="Enter End Time">
+        <input required type="time" class="form-control" id="endTime" aria-describedby="endTimeHelp" placeholder="Enter End Time">
         <small id="endTimeHelp" class="form-text text-muted">Enter the time you completed your babysitting job</small>
     </div>
     <button type="submit" class="btn btn-primary" onclick="submitTimes(startTime, endTime, bedTime)">Submit</button>
+    <hr>
+    <div class="form-group">
+        <label for="income">Total Income Earned</label>
+        <input readonly type="number" class="form-control" id="income" aria-describedby="incomeHelp">
+        <small id="incomeHelp" class="form-text text-muted">Total Money Earned In Dollars</small>
+    </div>
 </form>
