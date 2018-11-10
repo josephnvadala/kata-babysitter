@@ -13,12 +13,19 @@ namespace KataBabysitter.API
     [Route("api/IncomeCalculation")]
     public class IncomeCalculationController : Controller
     {        
-        // POST: api/IncomeCalculation
-        [HttpPost]
-        public void Post(ShiftInformation shiftInformation)
+        [HttpGet]
+        public async Task<IActionResult> myControllerAction(ShiftInformation shiftInformation)
         {
             var paymentCalculationService = new PaymentCalculationService();
-            var income = paymentCalculationService.Calculate(shiftInformation);
+            var income = paymentCalculationService.CalculateAsync(shiftInformation);
+            await Task.WhenAll(income);
+
+            var data = new
+            {
+                income
+            };
+
+            return Ok(data);
         }
 
     }
