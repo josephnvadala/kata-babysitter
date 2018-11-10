@@ -17,7 +17,7 @@ namespace KataBabysitter.Services
             return CalculateIncome(awakeHours, asleepHours, postMidnightHours);
         }
 
-        private int CalculateIncome(int awakeHours, int asleepHours, int postMidnightHours)
+        public int CalculateIncome(int awakeHours, int asleepHours, int postMidnightHours)
         {
             int totalIncome = 0;
             totalIncome += awakeHours * 12;
@@ -26,22 +26,22 @@ namespace KataBabysitter.Services
             return totalIncome;
         }
 
-        private int CalculateAwakeHours(ShiftInformation shiftInformation)
+        public int CalculateAwakeHours(ShiftInformation shiftInformation)
         {
             return (int)(shiftInformation.BedTime - FixStartTime(shiftInformation.StartTime)).TotalHours;
         }
 
-        private int CalculateAsleepHours(ShiftInformation shiftInformation)
+        public int CalculateAsleepHours(ShiftInformation shiftInformation)
         {
             return (int)(DateTime.Today.AddDays(1) - shiftInformation.BedTime).TotalHours;
         }
 
-        private int CalculatePostMidnightHours(ShiftInformation shiftInformation)
+        public int CalculatePostMidnightHours(ShiftInformation shiftInformation)
         {
             return (int)(shiftInformation.EndTime - DateTime.Today.AddDays(1)).TotalHours;
         }
 
-        private DateTime FixStartTime(DateTime startTime)
+        public DateTime FixStartTime(DateTime startTime)
         {
             if (startTime.Hour < 17)
             {
@@ -50,7 +50,7 @@ namespace KataBabysitter.Services
             return startTime;
         }
 
-        private ShiftInformation FixPostMidnightDates(ShiftInformation shiftInformation)
+        public ShiftInformation FixPostMidnightDates(ShiftInformation shiftInformation)
         {
             if (shiftInformation.StartTime.Hour < 5)
             {
