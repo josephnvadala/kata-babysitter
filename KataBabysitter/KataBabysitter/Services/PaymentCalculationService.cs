@@ -28,17 +28,32 @@ namespace KataBabysitter.Services
 
         public int CalculateAwakeHours(ShiftInformation shiftInformation)
         {
-            return (int)(shiftInformation.BedTime - FixStartTime(shiftInformation.StartTime)).TotalHours;
+            var awakeHours = (int)(shiftInformation.BedTime - FixStartTime(shiftInformation.StartTime)).TotalHours;
+            if(awakeHours < 0)
+            {
+                awakeHours = 0;
+            }
+            return awakeHours;
         }
 
         public int CalculateAsleepHours(ShiftInformation shiftInformation)
         {
-            return (int)(DateTime.Today.AddDays(1) - shiftInformation.BedTime).TotalHours;
+            var asleepHours = (int)(FixStartTime(shiftInformation.StartTime).Date.AddDays(1) - shiftInformation.BedTime).TotalHours;
+            if (asleepHours < 0)
+            {
+                asleepHours = 0;
+            }
+            return asleepHours;
         }
 
         public int CalculatePostMidnightHours(ShiftInformation shiftInformation)
         {
-            return (int)(shiftInformation.EndTime - DateTime.Today.AddDays(1)).TotalHours;
+            var postMidnightHours = (int)(shiftInformation.EndTime - DateTime.Today.AddDays(1)).TotalHours;
+            if (postMidnightHours < 0)
+            {
+                postMidnightHours = 0;
+            }
+            return postMidnightHours;
         }
 
         public DateTime FixStartTime(DateTime startTime)
