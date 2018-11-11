@@ -17,7 +17,7 @@ namespace KataBabysitter.Services
             return CalculateIncome(awakeHours, asleepHours, postMidnightHours);
         }
 
-        private int CalculateIncome(int awakeHours, int asleepHours, int postMidnightHours)
+        public int CalculateIncome(int awakeHours, int asleepHours, int postMidnightHours)
         {
             int totalIncome = 0;
             totalIncome += awakeHours * 12;
@@ -26,22 +26,37 @@ namespace KataBabysitter.Services
             return totalIncome;
         }
 
-        private int CalculateAwakeHours(ShiftInformation shiftInformation)
+        public int CalculateAwakeHours(ShiftInformation shiftInformation)
         {
-            return (int)(shiftInformation.BedTime - FixStartTime(shiftInformation.StartTime)).TotalHours;
+            var awakeHours = (int)(shiftInformation.BedTime - FixStartTime(shiftInformation.StartTime)).TotalHours;
+            if(awakeHours < 0)
+            {
+                awakeHours = 0;
+            }
+            return awakeHours;
         }
 
-        private int CalculateAsleepHours(ShiftInformation shiftInformation)
+        public int CalculateAsleepHours(ShiftInformation shiftInformation)
         {
-            return (int)(DateTime.Today.AddDays(1) - shiftInformation.BedTime).TotalHours;
+            var asleepHours = (int)(FixStartTime(shiftInformation.StartTime).Date.AddDays(1) - shiftInformation.BedTime).TotalHours;
+            if (asleepHours < 0)
+            {
+                asleepHours = 0;
+            }
+            return asleepHours;
         }
 
-        private int CalculatePostMidnightHours(ShiftInformation shiftInformation)
+        public int CalculatePostMidnightHours(ShiftInformation shiftInformation)
         {
-            return (int)(shiftInformation.EndTime - DateTime.Today.AddDays(1)).TotalHours;
+            var postMidnightHours = (int)(shiftInformation.EndTime - DateTime.Today.AddDays(1)).TotalHours;
+            if (postMidnightHours < 0)
+            {
+                postMidnightHours = 0;
+            }
+            return postMidnightHours;
         }
 
-        private DateTime FixStartTime(DateTime startTime)
+        public DateTime FixStartTime(DateTime startTime)
         {
             if (startTime.Hour < 17)
             {
@@ -50,7 +65,7 @@ namespace KataBabysitter.Services
             return startTime;
         }
 
-        private ShiftInformation FixPostMidnightDates(ShiftInformation shiftInformation)
+        public ShiftInformation FixPostMidnightDates(ShiftInformation shiftInformation)
         {
             if (shiftInformation.StartTime.Hour < 5)
             {
